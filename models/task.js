@@ -20,6 +20,6 @@ const TODOSCHEMA = new MONGOOSE.Schema({
 
 });
 
-const TODO = MONGOOSE.Model('Todo', TODOSCHEMA);
+const TASK = MONGOOSE.model('Task', TODOSCHEMA);
 
-module.exports = TODO;
+module.exports = TASK;
