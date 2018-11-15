@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=BioRhyme:200,300,400,700,800');
+ 
+h1 {
+	font-family: 'BioRhyme', serif;
+	
+}
+
+
+.card-panel:hover {
+	cursor: pointer;
+}
+
+.card-panel:hover i {
+	opacity: 1;
+}
+
+.done {
+	text-decoration: line-through;
+	color: #bdc3c7;
+}
+
+li i {
+  color: #c0392b;
+  transition: all 0.3s;
+  opacity: 0;
+}
+
+li i:hover {
+  color: #e74c3c;
+  opacity: 1;
+}
