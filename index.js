@@ -7,8 +7,8 @@ const TASKROUTES = require('./routes/tasks');
 
 APP.use(BODYPARSER.json());
 APP.use(BODYPARSER.urlencoded({extended: true}));
-APP.use(EXPRESS.static('/public'))
-APP.use(EXPRESS.static(__dirname + '/views'))
+APP.use(EXPRESS.static(__dirname + '/public'));
+APP.use(EXPRESS.static(__dirname + '/views'));
 
 APP.listen(PORT, () => {
     console.log('App is running on Port 3000');

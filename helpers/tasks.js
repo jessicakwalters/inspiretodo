@@ -41,7 +41,7 @@ exports.updateTask = (req, res) => {
 }
 
 exports.deleteTask = (req, res) => {
-    DB.TASK.remove({_id: req.params.taskID})
+    DB.TASK.deleteOne({_id: req.params.taskID})
     .then(() => {
         res.json({message: 'Task Deleted!'})
     })
