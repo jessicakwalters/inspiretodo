@@ -4,25 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="app.css" type="text/css" />
     <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
     </script>
-    <title>Inpire To Do</title>
+    <title>Zen To Do</title>
     
 </head>
 <body>
-    <header>
-            <h1>Are You Inspired?</h1>
-            <h2>A To-Do List Manager with a Dose of Inspiration</h2>
+    <header class="container section center-align">
+            <h1 class="section">My To Do List</h1>
+            <div class="quote">
+                    <a id="new-quote" class="section waves-effect cyan waves-light btn"><i class="material-icons left">whatshot</i>Inspire Me</a>
+            </div>
+            
     </header>
-<section class="form">
-    <input type="text" id="todoInput" placeholder="What do you need to do?">
+<section class="container input-field">
+        <i class="small material-icons prefix">assignment</i>
+    <input type="text" class="autocomplete" id="todoInput" placeholder="What do you need to do?">
 </section>
 
-<ul class="list">
+<ul class="list section container">
 </ul>
 
 <script type="text/javascript" src="app.js"></script>
