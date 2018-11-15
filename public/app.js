@@ -5,6 +5,13 @@ $(document).ready( () => {
         console.log(err);
     });
 
+    getZenQuote();
+
+    $('#new-quote').on('click', (event) => {
+        $(event.target).prev().remove();
+        getZenQuote();
+    })
+
     $('#todoInput').keypress((event) => {
         if(event.which == 13) {
             createTask();
@@ -92,4 +99,19 @@ function updateTask(task){
     })
 
     console.log();
+}
+
+function getZenQuote() {
+    $.ajax({
+        method: 'GET',
+        url: 'https://api.github.com/zen',
+    })
+    .done ((zenQuote) => {
+      console.log(zenQuote);
+      let newQuote = $('<h2 class="section">' + zenQuote + '</h2>');
+      $('.quote').prepend(newQuote);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 }
