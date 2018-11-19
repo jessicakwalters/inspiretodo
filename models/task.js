@@ -16,6 +16,13 @@ const TODOSCHEMA = new MONGOOSE.Schema({
     due_date: {
         type: Date, 
         
+    },
+    author: {
+        id: {
+            type: MONGOOSE.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        username: String,
     }
 
 });

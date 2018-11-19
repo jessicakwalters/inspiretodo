@@ -1,9 +1,14 @@
 const DB = require('../models');
 
 exports.getTasks = (req, res) => {
+    console.log(req.user._id);
     DB.TASK.find()
-    .then((todos)=>{
-        res.json(todos);
+    .then((tasks)=>{
+        console.log(tasks);
+        let newTasks = tasks.filter(task => (task.author.id.equals(req.user._id)));        
+        console.log(newTasks);
+        res.json(newTasks);
+
     })
     .catch((err) => {
         res.send(err);
@@ -11,8 +16,12 @@ exports.getTasks = (req, res) => {
 }
 
 exports.createTask = (req, res) => {
+    
     DB.TASK.create(req.body)
     .then((newTask) => {
+        newTask.author.id = req.user._id;
+        newTask.author.username = req.user.username;
+        newTask.save();
         res.json(newTask);
     })
     .catch((err) => {
@@ -49,5 +58,7 @@ exports.deleteTask = (req, res) => {
         res.send(err);
     })
 }
+
+
 
 module.exports = exports;
