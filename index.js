@@ -7,15 +7,7 @@ const LOCALSTRATEGY = require('passport-local');
 const USER = require('./models/user');
 const MONGOOSE = require('mongoose');
 
-const SESSION = require('express-session'),
-MongoStore = require('connect-mongo')(SESSION);
- 
-APP.use(SESSION({
-    secret: process.env.SESSIONSECRET,
-    store: new MongoStore({ mongooseConnection: MONGOOSE.connection }),
-    resave: false,
-    saveUninitialized: false
-}));
+const MongoStore = require('connect-mongo')(require('express-session'));
 
 const TASKROUTES = require('./routes/tasks');
 const USERROUTES = require('./routes/users');
@@ -27,6 +19,7 @@ APP.use(EXPRESS.static(__dirname + '/views'));
 
 APP.use(require('express-session')({
     secret: 'I love TO DO lists',
+    store: new MongoStore({ mongooseConnection: MONGOOSE.connection }),
     resave: false,
     saveUninitialized: false
 }));
