@@ -5,6 +5,16 @@ const BODYPARSER = require('body-parser');
 const PASSPORT = require('passport');
 const LOCALSTRATEGY = require('passport-local');
 const USER = require('./models/user');
+const MONGOOSE = require('mongoose');
+const SESSION = require('express-session'),
+const MongoStore = require('connect-mongo')(SESSION);
+ 
+APP.use(session({
+    secret: process.env.SESSIONSECRET,
+    store: new MongoStore({ mongooseConnection: MONGOOSE.connection }),
+    resave: false,
+    saveUninitialized: false
+}));
 
 const TASKROUTES = require('./routes/tasks');
 const USERROUTES = require('./routes/users');
