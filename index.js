@@ -7,8 +7,6 @@ const LOCALSTRATEGY = require('passport-local');
 const USER = require('./models/user');
 const MONGOOSE = require('mongoose');
 
-const MongoStore = require('connect-mongo')(require('express-session'));
-
 const TASKROUTES = require('./routes/tasks');
 const USERROUTES = require('./routes/users');
 
@@ -17,9 +15,14 @@ APP.use(BODYPARSER.urlencoded({extended: true}));
 APP.use(EXPRESS.static(__dirname + '/public'));
 APP.use(EXPRESS.static(__dirname + '/views'));
 
+MONGOOSE.connect();
+
 APP.use(require('express-session')({
     secret: 'I love TO DO lists',
-    store: new MongoStore({ mongooseConnection: MONGOOSE.connection }),
+    cookie: { maxAge: 2628000000 },
+    store: new (require('express-sessions'))({
+        storage: 'mongodb',
+    }),
     resave: false,
     saveUninitialized: false
 }));
