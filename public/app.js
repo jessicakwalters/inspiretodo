@@ -1,12 +1,7 @@
 $(document).ready( () => {
-    $.getJSON("/api/tasks")
-    .then(addTasks)
-    .catch((err) => {
-        console.log(err);
-    });
-
+   
     getZenQuote();
-
+    
     $('#new-quote').on('click', (event) => {
         $(event.target).prev().remove();
         getZenQuote();
@@ -18,6 +13,26 @@ $(document).ready( () => {
         }
     });
 
+    $('.modal').modal();
+
+    $('#signup-form').on('submit', (event) => {
+        event.preventDefault();
+        createUser();
+        $('#login-trigger').toggleClass('hide');
+        $('#signup-trigger').toggleClass('hide');
+        $('#logout').toggleClass('hide');
+        $('#taskInput').toggleClass('hide');
+    })
+
+    $('#login-form').on('submit', (event) => {
+        event.preventDefault();
+        userLogin();
+        $('#logout').toggleClass('hide');
+        $('#login-trigger').toggleClass('hide');
+        $('#signup-trigger').toggleClass('hide');
+        $('#taskInput').toggleClass('hide');
+    })
+
     $('.list').on('click', 'li', (event) => {
         updateTask($(event.target));
     });
@@ -27,13 +42,25 @@ $(document).ready( () => {
         event.stopPropagation();
         removeTask($(event.target).parent());
     });
+
+    $('#logout').on('click', (event) => {
+        $('#login-trigger').toggleClass('hide');
+        $('#sign-up-trigger').toggleClass('hide');
+        $('#taskInput').toggleClass('hide');
+    });
+
 });
 
-
+function getTasks() {
+    $.get('/api/tasks', addTasks)
+    .catch((err) => {
+        console.log(err);
+    });
+}
 
 function addTasks(tasks) {
     tasks.forEach((task) => {
-       addTask(task);
+            addTask(task);
     });
 }
 
@@ -41,7 +68,6 @@ function addTask(task) {
     let newTask = $('<li class="card-panel hoverable">' + task.task + '<i class="small material-icons right">clear</i></li>');
       newTask.data('id', task._id);
       newTask.data('completed', task.completed);
-    console.log(newTask.data());
     if(task.completed){
         newTask.addClass("done");
     }
@@ -107,7 +133,6 @@ function getZenQuote() {
         url: 'https://api.github.com/zen',
     })
     .done ((zenQuote) => {
-      console.log(zenQuote);
       let newQuote = $('<h2 class="section">' + zenQuote + '</h2>');
       $('.quote').prepend(newQuote);
     })
@@ -115,3 +140,38 @@ function getZenQuote() {
         console.log(err);
     });
 }
+
+  function createUser() {
+    let data = $('#signup-form').serialize();
+    $.ajax({
+        method:'POST',
+        url:'/api/users', 
+        data: data
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+}
+
+    function userLogin() {
+        let data = $('#login-form').serialize();
+        $.ajax({
+            method:'POST',
+            url:'/api/users/login', 
+            data: data
+        })
+        .done(() => {
+            $.getJSON("/api/tasks")
+            .then(addTasks)
+            .catch((err) => {
+                console.log(err);
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        
+    }
+
+    
+

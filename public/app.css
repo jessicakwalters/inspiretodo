@@ -33,3 +33,7 @@ li i:hover {
   color: #8E0415;
   opacity: 1;
 }
+
+.hide {
+  display: none;
+}
