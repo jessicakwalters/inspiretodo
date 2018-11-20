@@ -15,7 +15,7 @@ APP.use(BODYPARSER.urlencoded({extended: true}));
 APP.use(EXPRESS.static(__dirname + '/public'));
 APP.use(EXPRESS.static(__dirname + '/views'));
 
-APP.use(require('express-session')({
+APP.use(session({
     secret: 'I love TO DO lists',
     store: new MongoStore({ url: 'mongodb://jessicakwalters:password8414@ds039017.mlab.com:39017/inspiretodo' }),
     resave: false,
