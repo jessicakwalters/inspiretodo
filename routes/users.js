@@ -33,4 +33,6 @@ const USER = require('../models/user');
     res.redirect('/');
   });
   
+  
+  
   module.exports = ROUTER;

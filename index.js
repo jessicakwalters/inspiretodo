@@ -36,4 +36,19 @@ APP.use('/api/users', USERROUTES);
 APP.get('/', (req, res) => {
     res.sendFile('index.html');
 });
+
+//===================
+  //User API Routes
+  //===================
+  APP.get('/api/user_data', (req, res) => {
+    console.log(req.user);
+  if (req.user === undefined) {
+      // The user is not logged in
+      res.json({});
+  } else {
+      res.json({
+          username: req.user
+      });
+  }
+});
  

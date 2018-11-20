@@ -18,19 +18,11 @@ $(document).ready( () => {
     $('#signup-form').on('submit', (event) => {
         event.preventDefault();
         createUser();
-        $('#login-trigger').toggleClass('hide');
-        $('#signup-trigger').toggleClass('hide');
-        $('#logout').toggleClass('hide');
-        $('#taskInput').toggleClass('hide');
     })
 
     $('#login-form').on('submit', (event) => {
         event.preventDefault();
         userLogin();
-        $('#logout').toggleClass('hide');
-        $('#login-trigger').toggleClass('hide');
-        $('#signup-trigger').toggleClass('hide');
-        $('#taskInput').toggleClass('hide');
     })
 
     $('.list').on('click', 'li', (event) => {
@@ -44,11 +36,10 @@ $(document).ready( () => {
     });
 
     $('#logout').on('click', (event) => {
-        $('#login-trigger').toggleClass('hide');
-        $('#sign-up-trigger').toggleClass('hide');
-        $('#taskInput').toggleClass('hide');
+        currentlyLoggedIn();
     });
 
+    currentlyLoggedIn();
 });
 
 function getTasks() {
@@ -148,6 +139,9 @@ function getZenQuote() {
         url:'/api/users', 
         data: data
     })
+    .then(() => {
+        currentlyLoggedIn();
+    })
     .catch((err) => {
         console.log(err);
     })
@@ -167,11 +161,35 @@ function getZenQuote() {
                 console.log(err);
             });
         })
+        .then(() => {
+            currentlyLoggedIn();
+        })
         .catch((err) => {
             console.log(err);
         })
         
     }
 
+    function currentlyLoggedIn () {
+        $.getJSON("/api/user_data")
+        .then((user) => {
+            console.log(user.username);
+            if (user.username == undefined) {
+                $('#logout').addClass('hide');
+                $('#taskInput').addClass('hide');
+                console.log('Not Logged In');
+            } else {
+                $('#login-trigger').addClass('hide');
+                $('#signup-trigger').addClass('hide');
+                $('#logout').removeClass('hide');
+                $('#taskInput').removeClass('hide');
+                console.log('Logged in as: ' + user.username);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        
+    }
     
 
