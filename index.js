@@ -1,6 +1,5 @@
 const EXPRESS = require('express');
 const APP = EXPRESS();
-const PORT = 3000;
 const BODYPARSER = require('body-parser');
 const PASSPORT = require('passport');
 const LOCALSTRATEGY = require('passport-local');
@@ -30,7 +29,7 @@ PASSPORT.use(new LOCALSTRATEGY(USER.authenticate()));
 PASSPORT.serializeUser(USER.serializeUser());
 PASSPORT.deserializeUser(USER.deserializeUser());
 
-APP.listen(PORT, () => {
+APP.listen(process.env.PORT || 3000, () => {
     console.log('App is running on Port 3000');
 });
 
