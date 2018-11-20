@@ -20,7 +20,7 @@
     <div class="container section">
         <a id="login-trigger" class="waves-effect waves-light btn modal-trigger" href="#login-modal">Login</a>
         <a id="signup-trigger" class="waves-effect waves-light btn modal-trigger" href="#signup-modal">Signup</a>
-        <a class="waves-effect waves-green btn" href="api/users/logout" >Logout</a> 
+        <a id="logout" class="waves-effect waves-green btn hide" href="api/users/logout" >Logout</a> 
     </div>
      <!-- Login Modal  -->
     <div id="login-modal" class="modal">
@@ -56,7 +56,7 @@
             </div>
             
     </header>
-<section class="container input-field">
+<section id="taskInput" class="container input-field hide">
         <i class="small material-icons prefix">assignment</i>
     <input type="text" class="autocomplete" id="todoInput" placeholder="What do you need to do?">
 </section>

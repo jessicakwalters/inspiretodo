@@ -1,11 +1,5 @@
 $(document).ready( () => {
    
-    $.getJSON("/api/tasks")
-    .then(addTasks)
-    .catch((err) => {
-        console.log(err);
-    });
-   
     getZenQuote();
     
     $('#new-quote').on('click', (event) => {
@@ -24,12 +18,19 @@ $(document).ready( () => {
     $('#signup-form').on('submit', (event) => {
         event.preventDefault();
         createUser();
+        $('#login-trigger').toggleClass('hide');
+        $('#signup-trigger').toggleClass('hide');
+        $('#logout').toggleClass('hide');
+        $('#taskInput').toggleClass('hide');
     })
-
 
     $('#login-form').on('submit', (event) => {
         event.preventDefault();
         userLogin();
+        $('#logout').toggleClass('hide');
+        $('#login-trigger').toggleClass('hide');
+        $('#signup-trigger').toggleClass('hide');
+        $('#taskInput').toggleClass('hide');
     })
 
     $('.list').on('click', 'li', (event) => {
@@ -40,6 +41,12 @@ $(document).ready( () => {
     $('.list').on('click', 'i', (event) => {
         event.stopPropagation();
         removeTask($(event.target).parent());
+    });
+
+    $('#logout').on('click', (event) => {
+        $('#login-trigger').toggleClass('hide');
+        $('#sign-up-trigger').toggleClass('hide');
+        $('#taskInput').toggleClass('hide');
     });
 
 });
@@ -153,14 +160,17 @@ function getZenQuote() {
             url:'/api/users/login', 
             data: data
         })
-        .catch((err) => {
-            console.log(err);
-        })
-        $.getJSON("/api/tasks")
+        .done(() => {
+            $.getJSON("/api/tasks")
             .then(addTasks)
             .catch((err) => {
                 console.log(err);
             });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        
     }
 
     
