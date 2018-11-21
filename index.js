@@ -5,9 +5,12 @@ const PASSPORT = require('passport');
 const LOCALSTRATEGY = require('passport-local');
 const USER = require('./models/user');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const TASKROUTES = require('./routes/tasks');
 const USERROUTES = require('./routes/users');
+
+
 
 APP.use(BODYPARSER.json());
 APP.use(BODYPARSER.urlencoded({extended: true}));
